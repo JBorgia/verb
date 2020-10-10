@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { YoutubeResponse } from '../models/youtube-response';
@@ -14,9 +14,12 @@ export class YoutubeService {
   ngOnInit() {
   }
 
-  getMostPopularVideoSnippets(): Observable<YoutubeResponse> {
+  getMostPopularVideoSnippets(query?: string): Observable<YoutubeResponse> {
     const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=${KEY}`;
 
-    return this.http.get<YoutubeResponse>(url).pipe();
+    let params = new HttpParams();
+    params = params.append('q', query);
+
+    return this.http.get<YoutubeResponse>(url, { params: params }).pipe();
   }
 }

@@ -1,1 +1,6 @@
-<form><input type="text" placeholder="Search"></form>
+<form  [formGroup]="searchForm">
+    <input
+        type="text"
+        formControlName="search"
+        placeholder="Search">
+</form>
