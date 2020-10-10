@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { YoutubeResponse } from '../models/youtube-response';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { YoutubeResponse } from '../models/youtube-response';
 
 const KEY = 'AIzaSyBWz5y1wIdpY8pH8IyyFtnBdpe7j0Bhcac';
 
@@ -9,11 +9,14 @@ const KEY = 'AIzaSyBWz5y1wIdpY8pH8IyyFtnBdpe7j0Bhcac';
   providedIn: 'root',
 })
 export class YoutubeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getMostPopularVideos(): Observable<YoutubeResponse> {
-    const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&chart=mostPopular&key=${KEY}`;
+  ngOnInit() {
+  }
 
-    return this.http.get<YoutubeResponse>(url);
+  getMostPopularVideoSnippets(): Observable<YoutubeResponse> {
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=${KEY}`;
+
+    return this.http.get<YoutubeResponse>(url).pipe();
   }
 }
