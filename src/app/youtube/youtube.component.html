@@ -1,4 +1,4 @@
 <app-search #search></app-search>
-<div>
-    <app-videos [videos]="videos | async"></app-videos>
+<div (scroll)="onScroll($event)">
+    <app-videos [videoItems]="videoItems"></app-videos>
 </div>

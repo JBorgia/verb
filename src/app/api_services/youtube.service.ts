@@ -22,17 +22,34 @@ export class YoutubeService {
     return of(MOCK as YoutubeResponse);
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
+
   search(query: string): Observable<YoutubeResponse> {
     console.log('searching', query);
     const url = `https://www.googleapis.com/youtube/v3/search`;
 
     let params = new HttpParams();
-    params = params.append('q', query);
     params = params.append('key', KEY);
+    params = params.append('q', query);
     params = params.append('part', 'snippet');
     params = params.append('type', 'video');
     params = params.append('order', 'rating');
     params = params.append('maxResults', '50');
+    return of(MOCK as YoutubeResponse);
+    return this.http.get<YoutubeResponse>(url, { params }).pipe();
+  }
+
+  getNextPage(query: string, nextPageToken: string, maxResults: number = 10) {
+    const url = `https://www.googleapis.com/youtube/v3/search`;
+
+    let params = new HttpParams();
+    params = params.append('key', KEY);
+    params = params.append('pageToken', nextPageToken);
+    params = params.append('q', query);
+    params = params.append('part', 'snippet');
+    params = params.append('type', 'video');
+    params = params.append('order', 'rating');
+    params = params.append('maxResults', `${maxResults}`);
+    return of(MOCK as YoutubeResponse);
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 }

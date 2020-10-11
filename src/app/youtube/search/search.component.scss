@@ -1,10 +1,10 @@
 :host {
     height: 48px;
     display: flex;
-    background: #e22625;
+    background: var(--youtube-red);
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 4px 2px #888888;
+    box-shadow: 0px 0px var(--spacing-4) var(--spacing-2) #888888;
 
     img {
         height: 48px;
