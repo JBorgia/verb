@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap, tap } from 'rxjs/operators';
 import { YoutubeService } from '../api_services/youtube.service';
@@ -15,6 +15,7 @@ export class YoutubeComponent implements AfterViewInit {
   videos: Observable<YoutubeResponse>;
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private youtubeService: YoutubeService
   ) { }
 
@@ -24,9 +25,10 @@ export class YoutubeComponent implements AfterViewInit {
       filter(query => query.length > 2),
       startWith(this.search.searchForm.controls.search.value),
       tap(query => console.log('query', query)),
-      switchMap(query => this.youtubeService.getMostPopularVideoSnippets(query).pipe(tap(res => console.log('res', res))))
+      switchMap(query => query ? this.youtubeService.search(query) : this.youtubeService.getMostPopularVideoSnippets()),
+      tap(res => console.log('res', res))
     );
-
+    this.cdr.detectChanges();
   }
 
 }

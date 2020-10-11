@@ -1,12 +1,12 @@
 export interface YoutubeResponse {
   kind: string;
   etag: string;
-  items?: (ItemsEntity)[] | null;
+  items?: (ItemEntity)[] | null;
   nextPageToken: string;
   pageInfo: PageInfo;
 }
 
-export interface ItemsEntity {
+export interface ItemEntity {
   kind: string;
   etag: string;
   id: string;
@@ -20,12 +20,10 @@ export interface ContentDetails {
   definition: string;
   caption: string;
   licensedContent: boolean;
-  contentRating: ContentRating;
+  contentRating: any;
   projection: string;
 }
 
-export interface ContentRating {
-}
 
 export interface Snippet {
   publishedAt: string;

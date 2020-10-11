@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { YoutubeResponse } from '../models/youtube-response';
+import { MOCK } from './MOCK';
 
 const KEY = 'AIzaSyBWz5y1wIdpY8pH8IyyFtnBdpe7j0Bhcac';
 
@@ -11,15 +12,27 @@ const KEY = 'AIzaSyBWz5y1wIdpY8pH8IyyFtnBdpe7j0Bhcac';
 export class YoutubeService {
   constructor(private http: HttpClient) { }
 
-  ngOnInit() {
-  }
+  getMostPopularVideoSnippets(): Observable<YoutubeResponse> {
+    const url = `https://www.googleapis.com/youtube/v3/videos`;
 
-  getMostPopularVideoSnippets(query?: string): Observable<YoutubeResponse> {
-    const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=${KEY}`;
+    let params = new HttpParams();
+    params = params.append('part', 'snippet');
+    params = params.append('chart', 'mostPopular');
+    params = params.append('key', KEY);
+    return of(MOCK as YoutubeResponse);
+    return this.http.get<YoutubeResponse>(url, { params }).pipe();
+  }
+  search(query: string): Observable<YoutubeResponse> {
+    console.log('searching', query);
+    const url = `https://www.googleapis.com/youtube/v3/search`;
 
     let params = new HttpParams();
     params = params.append('q', query);
-
-    return this.http.get<YoutubeResponse>(url, { params: params }).pipe();
+    params = params.append('key', KEY);
+    params = params.append('part', 'snippet');
+    params = params.append('type', 'video');
+    params = params.append('order', 'rating');
+    params = params.append('maxResults', '50');
+    return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 }
