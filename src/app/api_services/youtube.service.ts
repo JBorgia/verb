@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { YoutubeResponse } from '../models/youtube-response';
-import { MOCK } from './MOCK';
+// // import { MOCK } from './MOCK';
 
 const KEY = 'AIzaSyBWz5y1wIdpY8pH8IyyFtnBdpe7j0Bhcac';
 
@@ -19,12 +19,11 @@ export class YoutubeService {
     params = params.append('part', 'snippet');
     params = params.append('chart', 'mostPopular');
     params = params.append('key', KEY);
-    return of(MOCK as YoutubeResponse);
+    // return of(MOCK as YoutubeResponse);
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 
   search(query: string): Observable<YoutubeResponse> {
-    console.log('searching', query);
     const url = `https://www.googleapis.com/youtube/v3/search`;
 
     let params = new HttpParams();
@@ -34,7 +33,7 @@ export class YoutubeService {
     params = params.append('type', 'video');
     params = params.append('order', 'rating');
     params = params.append('maxResults', '50');
-    return of(MOCK as YoutubeResponse);
+    // return of(MOCK as YoutubeResponse);
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 
@@ -49,7 +48,7 @@ export class YoutubeService {
     params = params.append('type', 'video');
     params = params.append('order', 'rating');
     params = params.append('maxResults', `${maxResults}`);
-    return of(MOCK as YoutubeResponse);
+    // return of(MOCK as YoutubeResponse);
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 }
