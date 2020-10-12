@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ModalModule } from 'angular-custom-modal';
 import { SearchComponent } from './search/search.component';
+import { TitleFilterPipe } from './title-filter.pipe';
 import { PlayerComponent } from './videos/player/player.component';
 import { VideoComponent } from './videos/video/video.component';
 import { VideosComponent } from './videos/videos.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
     VideosComponent,
     VideoComponent,
     YoutubeComponent,
-    PlayerComponent
+    PlayerComponent,
+    TitleFilterPipe
   ],
 })
 export class YoutubeModule { }

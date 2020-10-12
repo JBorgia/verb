@@ -1,6 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { debounceTime, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { Component, ViewChild } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
 import { YoutubeService } from '../api_services/youtube.service';
 import { ItemEntity } from '../models/youtube-response';
 import { SearchComponent } from './search/search.component';
@@ -10,35 +9,31 @@ import { SearchComponent } from './search/search.component';
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss']
 })
-export class YoutubeComponent implements AfterViewInit {
+export class YoutubeComponent {
   @ViewChild('search') search: SearchComponent;
-  videoItems$: Observable<ItemEntity[]>;
   videoItems: ItemEntity[];
+  filterString: '';
   nextPageToken: string;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     private youtubeService: YoutubeService
   ) { }
 
-  ngAfterViewInit(): void {
-    this.search.searchForm.controls.search.valueChanges.pipe(
-      debounceTime(300),
-      filter(query => query.length > 2),
-      startWith(this.search.searchForm.controls.search.value),
-      switchMap(query => query ? this.youtubeService.search(query) : this.youtubeService.getMostPopularVideoSnippets()),
+  onSearch(query) {
+    (query ? this.youtubeService.search(query) : this.youtubeService.getMostPopularVideoSnippets()).pipe(
       tap(res => this.nextPageToken = res.nextPageToken),
       map(res => res.items)
     ).subscribe(videoItems => this.videoItems = videoItems);
-    this.cdr.detectChanges();
   }
 
   /**
    * When searching for results, at the 80% of the end of the scrollable area more results are requested
    */
   onScroll(event: any) {
+    const scrollPercent = .80;
+
     if (
-      event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight * .80 &&
+      event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight * scrollPercent &&
       this.search.searchForm.controls.search.value &&
       this.nextPageToken
     ) {

@@ -1,4 +1,11 @@
-<app-search #search></app-search>
+<app-search
+    #search
+    (search)="onSearch($event)"
+    (filter)="filterString = $event">
+</app-search>
 <div (scroll)="onScroll($event)">
-    <app-videos [videoItems]="videoItems"></app-videos>
+    <app-videos
+        [videoItems]="videoItems"
+        [filterString]="filterString">
+    </app-videos>
 </div>
