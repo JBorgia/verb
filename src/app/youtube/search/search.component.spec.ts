@@ -26,7 +26,7 @@ describe('SearchComponent', () => {
   });
 
   it('should emit after change of search field', fakeAsync(() => {
-    const component = fixture.componentInstance;
+    component = fixture.componentInstance;
     spyOn(component.search, 'emit');
 
     const nativeElement = fixture.nativeElement;
@@ -40,7 +40,7 @@ describe('SearchComponent', () => {
   }));
 
   it('should emit after change of filter field', fakeAsync(() => {
-    const component = fixture.componentInstance;
+    component = fixture.componentInstance;
     spyOn(component.filter, 'emit');
 
     const nativeElement = fixture.nativeElement;

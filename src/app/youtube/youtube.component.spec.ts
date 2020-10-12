@@ -60,7 +60,7 @@ describe('YoutubeComponent', () => {
     expect(component.onSearch).toHaveBeenCalled();
     expect(component.videoItems.length).toBe(50);
 
-    component.onScroll({ target: { "offsetHeight": 2868, "scrollTop": 417, "scrollHeight": 2804, } });
+    component.onScroll({ target: { offsetHeight: 2868, scrollTop: 417, scrollHeight: 2804, } });
     expect(youtubeService.getNextPage).toHaveBeenCalled();
     expect(component.videoItems.length).toBe(100);
   });

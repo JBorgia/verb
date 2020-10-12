@@ -1,3 +1,4 @@
+/* tslint:disable */
 export const MOCK = {
   "kind": "youtube#videoListResponse",
   "etag": "csShmGWqqjfnpQqpy1GXs4if2eI",
