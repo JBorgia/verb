@@ -38,7 +38,7 @@ export class YoutubeService {
     return this.http.get<YoutubeResponse>(url, { params }).pipe();
   }
 
-  getNextPage(query: string, nextPageToken: string, maxResults: number = 10) {
+  getNextPage(query: string, nextPageToken: string, maxResults: number = 10): Observable<YoutubeResponse> {
     const url = `https://www.googleapis.com/youtube/v3/search`;
 
     let params = new HttpParams();

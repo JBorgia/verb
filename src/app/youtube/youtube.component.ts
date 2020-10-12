@@ -10,7 +10,7 @@ import { SearchComponent } from './search/search.component';
   styleUrls: ['./youtube.component.scss']
 })
 export class YoutubeComponent {
-  @ViewChild('search') search: SearchComponent;
+  @ViewChild('search', { static: true }) search: SearchComponent;
   videoItems: ItemEntity[];
   filterString: '';
   nextPageToken: string;
@@ -19,7 +19,7 @@ export class YoutubeComponent {
     private youtubeService: YoutubeService
   ) { }
 
-  onSearch(query) {
+  onSearch(query: string) {
     (query ? this.youtubeService.search(query) : this.youtubeService.getMostPopularVideoSnippets()).pipe(
       tap(res => this.nextPageToken = res.nextPageToken),
       map(res => res.items)
@@ -43,5 +43,4 @@ export class YoutubeComponent {
       ).subscribe(videoItems => this.videoItems.push(...videoItems));
     }
   }
-
 }

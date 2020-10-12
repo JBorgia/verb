@@ -1,7 +1,7 @@
 export interface YoutubeResponse {
   kind: string;
   etag: string;
-  items?: (ItemEntity)[] | null;
+  items: ItemEntity[];
   nextPageToken: string;
   pageInfo: PageInfo;
 }

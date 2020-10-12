@@ -14,7 +14,7 @@ import { YoutubeModule } from './youtube/youtube.module';
     YoutubeModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
