@@ -12,7 +12,7 @@ import { SearchComponent } from './search/search.component';
 export class YoutubeComponent {
   @ViewChild('search', { static: true }) search: SearchComponent;
   videoItems: ItemEntity[];
-  filterString: '';
+  filterString: string = '';
   nextPageToken: string;
 
   constructor(

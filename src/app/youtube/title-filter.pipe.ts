@@ -6,7 +6,7 @@ import { ItemEntity } from '../models/youtube-response';
 })
 export class TitleFilterPipe implements PipeTransform {
 
-  transform(items: ItemEntity[], ...args: string[]): unknown {
+  transform(items: ItemEntity[], ...args: string[]): ItemEntity[] {
     return args[0] ? items.filter(videoItem => videoItem.snippet.title.match(new RegExp(args[0], 'i'))) : items;
   }
 
